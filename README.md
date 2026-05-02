@@ -1,111 +1,137 @@
 # DameRide
 
-DameRide is an Expo Router / React Native app backed by Supabase. The app supports driver profiles, vehicles, ride search, reservations, storage-backed images, geospatial nearby search, and realtime ride/reservation updates.
+DameRide is a mobile app built with Expo, React Native, and Supabase for finding, publishing, and reserving shared rides. The project includes authentication, onboarding, profiles, vehicles, maps, geospatial search, reservations, image storage, and realtime updates.
 
-## Stack
+Spanish version: [README.es.md](README.es.md)
 
-- Expo SDK 54, React Native 0.81, React 19, Expo Router.
-- TypeScript with strict mode.
-- NativeWind for styling.
-- Supabase Auth, Postgres, PostGIS, Storage, Realtime, and RPC functions.
+## Technologies
 
-## Environment
+| Area | Technology |
+| --- | --- |
+| Mobile app | Expo SDK 54, React Native 0.81, React 19 |
+| Navigation | Expo Router |
+| Language | Strict TypeScript |
+| UI | NativeWind, Tailwind CSS, Plus Jakarta Sans, lucide-react-native |
+| Backend | Supabase Auth, Postgres, PostGIS, Storage, Realtime |
+| Maps/routes | react-native-maps, public OSRM and Valhalla endpoints |
+| Validation | Expo ESLint, TypeScript |
 
-Create `.env` from `.env.example`:
+## Main Features
+
+- Email and password registration/login.
+- Google sign-in through Supabase OAuth.
+- Onboarding flow to complete the profile and optionally register a vehicle.
+- Ride search by route, date, time, radius, and sorting option.
+- Ride publishing with map, seats, price, and notes.
+- Seat reservation and cancellation.
+- Profile, WhatsApp contact, and vehicle management.
+- Avatar and vehicle photo uploads to Supabase Storage.
+- Realtime updates for rides and reservations.
+
+## Requirements
+
+- Node.js and npm.
+- Expo through `npx expo`.
+- Supabase CLI through `npx supabase` if using the local backend.
+- Expo Go, an emulator/simulator, or a development build.
+- A configured Supabase project or an active local stack.
+
+## Installation
+
+```bash
+npm install
+```
+
+Copy `.env.example` to `.env` and fill in the required values.
+
+## Environment Variables
 
 ```bash
 EXPO_PUBLIC_SUPABASE_URL=
 EXPO_PUBLIC_SUPABASE_ANON_KEY=
 EXPO_PUBLIC_APP_SCHEME=dameride
 EXPO_PUBLIC_AUTH_REDIRECT_URL=dameride://auth/callback
-```
 
-Only use a Supabase anon or publishable key in the Expo client. Never use a service-role or secret key in mobile code.
-
-For local Google OAuth through Supabase CLI, also set these non-public provider values in `.env`:
-
-```bash
 GOOGLE_WEB_CLIENT_ID=
 SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET=
 ```
 
-Do not expose the Google client secret in the Expo client.
+Never commit real secrets or include them in documentation. The mobile app must only use public anon/publishable keys. Do not use `SUPABASE_SERVICE_ROLE_KEY` in React Native.
 
-## Setup
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start local Supabase, rebuild the database, and copy local values into `.env`:
-
-```bash
-npm run supabase:start
-npm run supabase:reset
-npm run supabase:status
-```
-
-Start the app:
+## Development
 
 ```bash
 npm run start
 ```
 
-## Validation
+If you need a tunnel for a physical device or OAuth on restrictive networks:
 
 ```bash
-npm run lint
-npm run typecheck
-npm run validate
+npx expo start --tunnel
 ```
 
-Use `npm run export` for an Expo export smoke test when needed.
-
-## Supabase Workflows
+Only clear the Metro cache when needed:
 
 ```bash
-npm run supabase:start
-npm run supabase:status
-npm run supabase:reset
-npm run supabase:types
-npm run supabase:push
+npx expo start --tunnel --clear
 ```
 
-See `supabase/README.md` for full backend recovery and new-account rebuild instructions.
+## Available Scripts
 
-## Google Login
+| Script | Description |
+| --- | --- |
+| `npm run start` | Starts Expo. |
+| `npm run android` | Starts Expo and opens Android. |
+| `npm run ios` | Starts Expo and opens iOS. |
+| `npm run web` | Starts Expo for web. |
+| `npm run lint` | Runs ESLint with the Expo config. |
+| `npm run typecheck` | Runs TypeScript without emitting files. |
+| `npm run validate` | Runs lint and typecheck. |
+| `npm run export` | Generates an Expo export. |
+| `npm run supabase:start` | Starts local Supabase. |
+| `npm run supabase:stop` | Stops local Supabase. |
+| `npm run supabase:status` | Shows local URLs and keys. |
+| `npm run supabase:reset` | Rebuilds the local database from migrations. |
+| `npm run supabase:push` | Applies migrations to a linked remote project. |
+| `npm run supabase:types` | Generates TypeScript types from local Supabase. |
 
-Google login uses Supabase Auth OAuth with the Expo scheme `dameride`. The mobile redirect URL is:
+## Project Structure
 
 ```txt
-dameride://auth/callback
+app/                 Screens and navigation with Expo Router
+src/components/      Reusable UI and map components
+src/features/auth/   Google sign-in flow
+src/hooks/           Authentication and realtime hooks
+src/lib/             Supabase client, auth, database, and storage
+src/types/           Domain types and generated Supabase types
+src/utils/           Formatting, avatar, maps, and route utilities
+supabase/            Local config, migrations, and backend documentation
+docs/es/             Spanish project documentation
+docs/eng/            English project documentation
 ```
 
-The Google Cloud OAuth client must include this Supabase callback as an authorized redirect URI:
+## Documentation
 
-```txt
-https://<project-ref>.supabase.co/auth/v1/callback
-```
+Read the full English documentation in [`docs/eng/index.md`](docs/eng/index.md).
 
-For this project, the hosted callback is:
+- [Introduction](docs/eng/introduction.md)
+- [Installation](docs/eng/installation.md)
+- [Configuration](docs/eng/configuration.md)
+- [Architecture](docs/eng/architecture.md)
+- [Supabase](docs/eng/supabase.md)
+- [Database](docs/eng/database.md)
+- [Authentication](docs/eng/authentication.md)
+- [Portfolio](docs/eng/portfolio.md)
 
-```txt
-https://yliheyexcuufosggowmj.supabase.co/auth/v1/callback
-```
+Spanish documentation is available in [`docs/es/indice.md`](docs/es/indice.md).
 
-## Architecture
+## Authorship and Credits
 
-- `app/` contains Expo Router screens and route groups.
-- `src/lib/supabase.ts` owns lazy Supabase client initialization for Expo Router compatibility.
-- `src/lib/database.ts` contains repository-style Supabase data operations used by UI/hooks.
-- `src/lib/storage.ts` contains storage upload helpers for avatars and vehicle photos.
-- `src/hooks/useAuth.tsx` manages auth/session/profile state.
-- `src/hooks/useRealtime.ts` manages Postgres Realtime subscriptions.
-- `src/types/supabase.ts` is generated from Supabase migrations and used to type the client.
-- `src/types/database.ts` contains app-facing domain types used by components.
+- Full application development: Steven Mendez.
+- Business idea, conceptual design, main flows, and functional guidance: Br. Vilma Paiz.
+- Project developed to support Br. Vilma Paiz in her Entrepreneurship class at UAM Managua.
+- Project developed as a professional portfolio piece.
 
-## Backend Recovery
+## License
 
-The `/supabase` folder is intended to reconstruct the backend from scratch. It includes CLI config, migrations, storage policy setup, realtime publication setup, and recovery documentation. Seed/runtime data is intentionally excluded.
+This project is open source under the MIT license. See [`LICENSE`](LICENSE) for details.
