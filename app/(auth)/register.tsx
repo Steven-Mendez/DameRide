@@ -74,7 +74,7 @@ export default function RegisterScreen() {
               <ArrowLeft size={24} color={Colors.onSurface} />
             </TouchableOpacity>
             <Text className="font-jakarta-extrabold text-xl text-primary tracking-tight">
-              RideTogether
+              DameRide
             </Text>
           </View>
 

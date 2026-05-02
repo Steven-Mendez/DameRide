@@ -71,7 +71,7 @@ export default function RideDetailsScreen() {
 
   const handleWhatsApp = () => {
     if (ride?.driver?.phone) {
-      const message = `¡Hola! Me interesa tu viaje ${ride.origin} → ${ride.destination} en RideTogether.`;
+      const message = `¡Hola! Me interesa tu viaje ${ride.origin} → ${ride.destination} en DameRide.`;
       Linking.openURL(getWhatsAppUrl(ride.driver.phone, message)).catch(() => {
         Alert.alert('Error', 'No se pudo abrir WhatsApp. Asegúrate de tenerlo instalado.');
       });

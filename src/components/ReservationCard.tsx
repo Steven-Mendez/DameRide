@@ -18,7 +18,7 @@ export function ReservationCard({ reservation, onCancel, cancelling }: Reservati
 
   const handleWhatsApp = () => {
     if (driver?.phone) {
-      const message = `¡Hola! Soy tu pasajero en RideTogether para el viaje ${ride.origin} → ${ride.destination}`;
+      const message = `¡Hola! Soy tu pasajero en DameRide para el viaje ${ride.origin} → ${ride.destination}`;
       Linking.openURL(getWhatsAppUrl(driver.phone, message)).catch(() => {
         Alert.alert('Error', 'No se pudo abrir WhatsApp. Asegúrate de tenerlo instalado.');
       });

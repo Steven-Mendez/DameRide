@@ -1,6 +1,6 @@
 # Supabase Backend Recovery
 
-This folder is the source of truth for reconstructing the RideTogether Supabase backend in a local stack or a new Supabase account.
+This folder is the source of truth for reconstructing the DameRide Supabase backend in a local stack or a new Supabase account.
 
 ## Contents
 
@@ -67,7 +67,7 @@ This writes `src/types/supabase.ts`. Commit regenerated types whenever migration
 Google login uses Supabase Auth as the OAuth broker. The app opens the Supabase OAuth URL with Expo WebBrowser and returns through the custom scheme in `app.json`:
 
 ```txt
-ridetogether://auth/callback
+dameride://auth/callback
 ```
 
 ### Google Cloud
@@ -113,7 +113,7 @@ In `Authentication` -> `URL Configuration`:
 - Add redirect URLs:
 
 ```txt
-ridetogether://auth/callback
+dameride://auth/callback
 exp://127.0.0.1:8081
 exp://localhost:8081
 http://localhost:8081

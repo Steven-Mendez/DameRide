@@ -84,7 +84,7 @@ set
   photo_url = excluded.photo_url;
 
 delete from public.rides
-where notes like 'Viaje de prueba RideTogether%'
+where notes like 'Viaje de prueba DameRide%'
    or driver_id in (
      select id
      from public.profiles
@@ -172,7 +172,7 @@ select
   r.route_duration_seconds,
   1 + ((s.slot + d.rn) % 4),
   r.price_cordobas + (d.rn * 5),
-  'Viaje de prueba RideTogether. Ruta Nicaragua #' || r.route_index::text || '. Confirmar por WhatsApp antes de abordar.',
+  'Viaje de prueba DameRide. Ruta Nicaragua #' || r.route_index::text || '. Confirmar por WhatsApp antes de abordar.',
   'active'
 from ride_slots s
 join drivers d on d.rn = s.driver_rn

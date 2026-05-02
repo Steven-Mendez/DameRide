@@ -32,7 +32,7 @@ export default function WelcomeScreen() {
         {/* Header */}
         <View className="flex-row justify-between items-center px-5 h-16 border-b border-gray-100">
           <Text className="font-jakarta-extrabold text-xl text-primary tracking-tight">
-            RideTogether
+            DameRide
           </Text>
           <View className="flex-row items-center gap-3">
             <TouchableOpacity className="p-2 rounded-full" activeOpacity={0.7}>
@@ -54,7 +54,7 @@ export default function WelcomeScreen() {
           </View>
 
           <Text className="font-jakarta-bold text-[30px] text-on-surface text-center tracking-tight">
-            RideTogether
+            DameRide
           </Text>
           <Text className="font-jakarta text-base text-on-surface-variant text-center mt-2 max-w-[280px]">
             Comparte tu ruta, ahorra dinero y viaja acompañado

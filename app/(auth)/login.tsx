@@ -64,7 +64,7 @@ export default function LoginScreen() {
 
               <View className="items-center gap-1">
                 <Text className="font-jakarta-extrabold text-[30px] text-on-surface text-center tracking-tight">
-                  RideTogether
+                  DameRide
                 </Text>
                 <Text className="font-jakarta text-sm text-on-surface-variant text-center max-w-[290px] leading-5">
                   Comparte tu ruta, ahorra dinero y viaja acompañado.

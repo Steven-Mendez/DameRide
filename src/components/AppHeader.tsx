@@ -43,7 +43,7 @@ export function AppHeader({
           <DriverBadge name={profile?.full_name ?? null} avatarUrl={avatarUrl} size="sm" />
         )}
         <Text className="font-jakarta-extrabold text-xl text-primary tracking-tight">
-          RideTogether
+          DameRide
         </Text>
       </View>
       <View className="flex-row items-center gap-4">

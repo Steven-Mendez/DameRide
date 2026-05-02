@@ -1,6 +1,6 @@
-# RideTogether
+# DameRide
 
-RideTogether is an Expo Router / React Native app backed by Supabase. The app supports driver profiles, vehicles, ride search, reservations, storage-backed images, geospatial nearby search, and realtime ride/reservation updates.
+DameRide is an Expo Router / React Native app backed by Supabase. The app supports driver profiles, vehicles, ride search, reservations, storage-backed images, geospatial nearby search, and realtime ride/reservation updates.
 
 ## Stack
 
@@ -16,8 +16,8 @@ Create `.env` from `.env.example`:
 ```bash
 EXPO_PUBLIC_SUPABASE_URL=
 EXPO_PUBLIC_SUPABASE_ANON_KEY=
-EXPO_PUBLIC_APP_SCHEME=ridetogether
-EXPO_PUBLIC_AUTH_REDIRECT_URL=ridetogether://auth/callback
+EXPO_PUBLIC_APP_SCHEME=dameride
+EXPO_PUBLIC_AUTH_REDIRECT_URL=dameride://auth/callback
 ```
 
 Only use a Supabase anon or publishable key in the Expo client. Never use a service-role or secret key in mobile code.
@@ -77,10 +77,10 @@ See `supabase/README.md` for full backend recovery and new-account rebuild instr
 
 ## Google Login
 
-Google login uses Supabase Auth OAuth with the Expo scheme `ridetogether`. The mobile redirect URL is:
+Google login uses Supabase Auth OAuth with the Expo scheme `dameride`. The mobile redirect URL is:
 
 ```txt
-ridetogether://auth/callback
+dameride://auth/callback
 ```
 
 The Google Cloud OAuth client must include this Supabase callback as an authorized redirect URI:

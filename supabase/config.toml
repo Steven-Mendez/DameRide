@@ -1,7 +1,7 @@
 # Supabase CLI local development configuration.
 # Regenerate with `npx supabase init` if the CLI format changes.
 
-project_id = "ridetogether"
+project_id = "dameride"
 
 [api]
 enabled = true
@@ -50,7 +50,7 @@ file_size_limit = "50MiB"
 [auth]
 enabled = true
 site_url = "http://localhost:8081"
-additional_redirect_urls = ["ridetogether://auth/callback", "exp://127.0.0.1:8081", "exp://localhost:8081", "http://localhost:8081", "http://127.0.0.1:8081"]
+additional_redirect_urls = ["dameride://auth/callback", "exp://127.0.0.1:8081", "exp://localhost:8081", "http://localhost:8081", "http://127.0.0.1:8081"]
 jwt_expiry = 3600
 enable_refresh_token_rotation = true
 refresh_token_reuse_interval = 10

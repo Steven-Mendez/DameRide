@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "RideTogether",
-    "slug": "RideTogether",
+    "name": "DameRide",
+    "slug": "DameRide",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "ridetogether",
+    "scheme": "dameride",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "RideTogether usa tu ubicación para seleccionar puntos en el mapa."
+        "NSLocationWhenInUseUsageDescription": "DameRide usa tu ubicación para seleccionar puntos en el mapa."
       }
     },
     "android": {
@@ -33,14 +33,14 @@
       [
         "expo-location",
         {
-          "locationWhenInUsePermission": "RideTogether usa tu ubicación para seleccionar puntos en el mapa."
+          "locationWhenInUsePermission": "DameRide usa tu ubicación para seleccionar puntos en el mapa."
         }
       ],
       [
         "expo-image-picker",
         {
-          "photosPermission": "RideTogether necesita acceso a tus fotos para subir imagenes de tus vehiculos.",
-          "cameraPermission": "RideTogether necesita acceso a la camara para tomar fotos de tus vehiculos."
+          "photosPermission": "DameRide necesita acceso a tus fotos para subir imagenes de tus vehiculos.",
+          "cameraPermission": "DameRide necesita acceso a la camara para tomar fotos de tus vehiculos."
         }
       ],
       [
