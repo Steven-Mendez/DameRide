@@ -18,6 +18,8 @@ drop policy if exists "Users can upload their avatar images" on storage.objects;
 drop policy if exists "Users can upload their own avatar" on storage.objects;
 drop policy if exists "Users can update their avatar images" on storage.objects;
 drop policy if exists "Users can update their own avatar" on storage.objects;
+drop policy if exists "Users can delete their avatar images" on storage.objects;
+drop policy if exists "Users can delete their own avatar" on storage.objects;
 
 create policy "Avatar images are public"
 on storage.objects for select
@@ -37,6 +39,13 @@ using (
   and (storage.foldername(name))[1] = auth.uid()::text
 )
 with check (
+  bucket_id = 'avatars'
+  and (storage.foldername(name))[1] = auth.uid()::text
+);
+
+create policy "Users can delete their avatar images"
+on storage.objects for delete to authenticated
+using (
   bucket_id = 'avatars'
   and (storage.foldername(name))[1] = auth.uid()::text
 );

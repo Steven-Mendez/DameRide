@@ -16,7 +16,7 @@ enabled = false
 [db]
 port = 54322
 shadow_port = 54320
-major_version = 15
+major_version = 17
 
 [db.pooler]
 enabled = false
@@ -26,8 +26,7 @@ default_pool_size = 20
 max_client_conn = 100
 
 [db.seed]
-enabled = true
-sql_paths = ["./seed.sql"]
+enabled = false
 
 [realtime]
 enabled = true

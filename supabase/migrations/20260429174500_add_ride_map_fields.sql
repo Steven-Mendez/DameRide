@@ -1,4 +1,4 @@
-create extension if not exists postgis with schema extensions;
+create extension if not exists postgis with schema public;
 
 alter table public.rides
   add column if not exists origin_place_name text,
@@ -22,13 +22,13 @@ set search_path = ''
 as $$
 begin
   if new.origin_lat is not null and new.origin_lng is not null then
-    new.origin_location := st_setsrid(st_makepoint(new.origin_lng, new.origin_lat), 4326)::geography;
+    new.origin_location := public.st_setsrid(public.st_makepoint(new.origin_lng, new.origin_lat), 4326)::public.geography;
   else
     new.origin_location := null;
   end if;
 
   if new.destination_lat is not null and new.destination_lng is not null then
-    new.destination_location := st_setsrid(st_makepoint(new.destination_lng, new.destination_lat), 4326)::geography;
+    new.destination_location := public.st_setsrid(public.st_makepoint(new.destination_lng, new.destination_lat), 4326)::public.geography;
   else
     new.destination_location := null;
   end if;
@@ -47,12 +47,12 @@ update public.rides
 set
   origin_location = case
     when origin_lat is not null and origin_lng is not null
-      then st_setsrid(st_makepoint(origin_lng, origin_lat), 4326)::geography
+      then public.st_setsrid(public.st_makepoint(origin_lng, origin_lat), 4326)::public.geography
     else null
   end,
   destination_location = case
     when destination_lat is not null and destination_lng is not null
-      then st_setsrid(st_makepoint(destination_lng, destination_lat), 4326)::geography
+      then public.st_setsrid(public.st_makepoint(destination_lng, destination_lat), 4326)::public.geography
     else null
   end
 where true;

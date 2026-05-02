@@ -108,4 +108,4 @@ https://yliheyexcuufosggowmj.supabase.co/auth/v1/callback
 
 ## Backend Recovery
 
-The `/supabase` folder is intended to reconstruct the backend from scratch. It includes CLI config, migrations, storage policy setup, realtime publication setup, seed data, and recovery documentation.
+The `/supabase` folder is intended to reconstruct the backend from scratch. It includes CLI config, migrations, storage policy setup, realtime publication setup, and recovery documentation. Seed/runtime data is intentionally excluded.

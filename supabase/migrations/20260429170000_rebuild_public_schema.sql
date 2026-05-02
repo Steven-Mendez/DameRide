@@ -4,7 +4,7 @@
 -- Do not push this baseline to an existing production database.
 
 create extension if not exists "uuid-ossp" with schema extensions;
-create extension if not exists postgis with schema extensions;
+create extension if not exists postgis with schema public;
 
 -- Drop auth trigger first to avoid dangling references while recreating tables/functions.
 drop trigger if exists on_auth_user_created on auth.users;
@@ -131,13 +131,13 @@ set search_path = ''
 as $$
 begin
   if new.origin_lat is not null and new.origin_lng is not null then
-    new.origin_location := st_setsrid(st_makepoint(new.origin_lng, new.origin_lat), 4326)::geography;
+    new.origin_location := public.st_setsrid(public.st_makepoint(new.origin_lng, new.origin_lat), 4326)::public.geography;
   else
     new.origin_location := null;
   end if;
 
   if new.destination_lat is not null and new.destination_lng is not null then
-    new.destination_location := st_setsrid(st_makepoint(new.destination_lng, new.destination_lat), 4326)::geography;
+    new.destination_location := public.st_setsrid(public.st_makepoint(new.destination_lng, new.destination_lat), 4326)::public.geography;
   else
     new.destination_location := null;
   end if;
