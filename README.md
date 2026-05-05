@@ -4,6 +4,16 @@ DameRide is a mobile app built with Expo, React Native, and Supabase for finding
 
 Spanish version: [README.es.md](README.es.md)
 
+## Videos
+
+Promotional video:
+https://github.com/Steven-Mendez/DameRide/releases/download/media-assets-v1/dameride-promotional-video.mp4
+
+Real usage video:
+https://github.com/Steven-Mendez/DameRide/releases/download/media-assets-v1/dameride-real-usage.mp4
+
+Screenshots are available in: [`docs/media/screenshots`](docs/media/screenshots)
+
 ## Technologies
 
 | Area | Technology |

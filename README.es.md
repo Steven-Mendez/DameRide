@@ -2,6 +2,15 @@
 
 DameRide es una app móvil desarrollada con Expo, React Native y Supabase para buscar, publicar y reservar viajes compartidos. El proyecto incluye autenticación, onboarding, perfiles, vehículos, mapas, búsqueda geoespacial, reservas, almacenamiento de imágenes y actualizaciones en tiempo real.
 
+Versión en inglés: [README.md](README.md)
+
+## Videos
+
+- Video promocional: [GitHub asset](https://github.com/Steven-Mendez/DameRide/releases/download/media-assets-v1/dameride-promotional-video.mp4)
+- Video de uso real: [GitHub asset](https://github.com/Steven-Mendez/DameRide/releases/download/media-assets-v1/dameride-real-usage.mp4)
+
+Las capturas de pantalla están en: [`docs/media/screenshots`](docs/media/screenshots)
+
 ## Tecnologías Utilizadas
 
 | Área | Tecnología |
