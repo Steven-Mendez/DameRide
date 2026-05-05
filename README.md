@@ -6,11 +6,11 @@ Spanish version: [README.es.md](README.es.md)
 
 ## Videos
 
-Promotional video:
-https://github.com/Steven-Mendez/DameRide/releases/download/media-assets-v1/dameride-promotional-video.mp4
+Full video:
+https://youtu.be/R8mwL_LmFY8
 
-Real usage video:
-https://github.com/Steven-Mendez/DameRide/releases/download/media-assets-v1/dameride-real-usage.mp4
+Promotional video:
+https://youtu.be/RdFz66Q0UXo
 
 Screenshots are available in: [`docs/media/screenshots`](docs/media/screenshots)
 

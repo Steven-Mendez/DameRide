@@ -6,8 +6,11 @@ Versión en inglés: [README.md](README.md)
 
 ## Videos
 
-- Video promocional: [GitHub asset](https://github.com/Steven-Mendez/DameRide/releases/download/media-assets-v1/dameride-promotional-video.mp4)
-- Video de uso real: [GitHub asset](https://github.com/Steven-Mendez/DameRide/releases/download/media-assets-v1/dameride-real-usage.mp4)
+Video completo:
+https://youtu.be/R8mwL_LmFY8
+
+Video promocional:
+https://youtu.be/RdFz66Q0UXo
 
 Las capturas de pantalla están en: [`docs/media/screenshots`](docs/media/screenshots)
 
