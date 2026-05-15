@@ -1,0 +1,3 @@
+- [Project conventions](project_conventions.md) — RideTogether/DameRide stack, spec convention, commands
+- [App focus](project_focus.md) — Nicaragua-focused student rideshare (DameRide); Spanish UI copy
+- [Supabase migration drift](supabase_migration_drift.md) — Local/remote migration history is misaligned; use `repair --status applied` + placeholder files before `db push`

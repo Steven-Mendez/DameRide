@@ -12,6 +12,7 @@ import { useRealtimeRides } from '@/src/hooks/useRealtime';
 import { getRides } from '@/src/lib/database';
 import type { MapPointSelection, RideWithDriver } from '@/src/types/database';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { Calendar, Clock, MapPin, Route, Search, SlidersHorizontal, X } from 'lucide-react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Modal, Platform, RefreshControl, Text, TouchableOpacity, View } from 'react-native';
@@ -22,6 +23,7 @@ const RADIUS_OPTIONS_KM = [1, 3, 5, 10];
 
 export default function BuscarScreen() {
   const { user } = useAuth();
+  const tabBarHeight = useBottomTabBarHeight();
   const [rides, setRides] = useState<RideWithDriver[]>([]);
   const [step, setStep] = useState<'filters' | 'results'>('filters');
   const [date, setDate] = useState('');
@@ -509,7 +511,7 @@ export default function BuscarScreen() {
           data={rides}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => <RideCard ride={item} />}
-          contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 110, gap: 16 }}
+          contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: tabBarHeight + 24, gap: 16 }}
           ListHeaderComponent={renderResultsHeader}
           ListFooterComponent={renderResultsFooter}
           onEndReached={loadMoreRides}

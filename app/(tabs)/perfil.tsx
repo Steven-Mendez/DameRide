@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Alert, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
-import { Star, Edit, LogOut, Phone, MessageSquare, Car, ChevronRight } from 'lucide-react-native';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { Star, Edit, LogOut, Phone, MessageSquare, Car, ChevronRight, GraduationCap, IdCard } from 'lucide-react-native';
 import { AppHeader } from '@/src/components/AppHeader';
 import { DriverBadge } from '@/src/components/DriverBadge';
 import { Button } from '@/src/components/Button';
@@ -16,6 +17,7 @@ import { Colors, Shadows } from '@/src/constants/theme';
 export default function PerfilScreen() {
   const { user, profile } = useAuth();
   const router = useRouter();
+  const tabBarHeight = useBottomTabBarHeight();
   const avatarUrl = getDisplayAvatarUrl(profile, user);
   const [loggingOut, setLoggingOut] = useState(false);
   const [vehiclesCount, setVehiclesCount] = useState(0);
@@ -63,7 +65,7 @@ export default function PerfilScreen() {
     <SafeAreaView className="flex-1 bg-background" edges={['top']}>
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={{ paddingBottom: tabBarHeight + 24 }}
       >
         {/* Header */}
         <AppHeader />
@@ -145,6 +147,51 @@ export default function PerfilScreen() {
               <ChevronRight size={20} color={Colors.outline} />
             </TouchableOpacity>
           </View>
+
+          {/* Estudios */}
+          {profile?.university || profile?.student_id ? (
+            <View
+              className="bg-white rounded-[20px] p-6 border border-outline-variant/20 gap-4"
+              style={Shadows.sm}
+            >
+              <View className="flex-row items-center gap-2">
+                <GraduationCap size={20} color={Colors.primary} />
+                <Text className="font-jakarta-bold text-lg">Estudios</Text>
+              </View>
+
+              {profile?.university ? (
+                <View className="flex-row items-center gap-3 p-4 bg-surface-container-low rounded-xl">
+                  <View className="w-10 h-10 bg-primary-container/30 rounded-full items-center justify-center">
+                    <GraduationCap size={20} color={Colors.primary} />
+                  </View>
+                  <View className="flex-1">
+                    <Text className="font-jakarta-semibold text-sm text-on-surface-variant">
+                      Universidad
+                    </Text>
+                    <Text className="font-jakarta text-base text-on-surface">
+                      {profile.university}
+                    </Text>
+                  </View>
+                </View>
+              ) : null}
+
+              {profile?.student_id ? (
+                <View className="flex-row items-center gap-3 p-4 bg-surface-container-low rounded-xl">
+                  <View className="w-10 h-10 bg-primary-container/30 rounded-full items-center justify-center">
+                    <IdCard size={20} color={Colors.primary} />
+                  </View>
+                  <View className="flex-1">
+                    <Text className="font-jakarta-semibold text-sm text-on-surface-variant">
+                      Carnet
+                    </Text>
+                    <Text className="font-jakarta text-base text-on-surface">
+                      {profile.student_id}
+                    </Text>
+                  </View>
+                </View>
+              ) : null}
+            </View>
+          ) : null}
 
           {/* Actions */}
           <View className="gap-3">

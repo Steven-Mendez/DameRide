@@ -7,6 +7,8 @@ export interface Profile {
   rating: number;
   completed_rides: number;
   onboarding_completed_at: string | null;
+  university: string | null;
+  student_id: string | null;
   created_at: string;
 }
 

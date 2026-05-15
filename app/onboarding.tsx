@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Alert, KeyboardAvoidingView, Modal, Platform, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ArrowLeft, ArrowRight, Car, CheckCircle2, ChevronDown, MapPin, Phone, Search, X, UserRound, UsersRound } from 'lucide-react-native';
+import { ArrowLeft, ArrowRight, Car, CheckCircle2, ChevronDown, GraduationCap, IdCard, MapPin, Phone, Search, X, UserRound, UsersRound } from 'lucide-react-native';
 import { Button } from '@/src/components/Button';
 import { Input } from '@/src/components/Input';
 import { Colors, Shadows } from '@/src/constants/theme';
@@ -30,7 +30,26 @@ const DEPARTMENTS = [
   'Costa Caribe Sur',
 ];
 
-type Step = 0 | 1 | 2 | 3 | 4;
+const UNIVERSITIES = [
+  'UNAN-Managua',
+  'UNAN-León',
+  'UCA',
+  'UNI',
+  'UNA',
+  'UPOLI',
+  'UAM',
+  'Keiser University',
+  'UNICA',
+  'UCC',
+  'UDO',
+  'BICU',
+  'URACCAN',
+  'UCATSE',
+];
+
+const OTHER_UNIVERSITY_OPTION = 'Otra';
+
+type Step = 0 | 1 | 2 | 3 | 4 | 5;
 type FinishTarget = 'home' | 'vehicle';
 
 const normalizeSearchText = (value: string) => {
@@ -50,6 +69,11 @@ export default function OnboardingScreen() {
   const [department, setDepartment] = useState('');
   const [departmentPickerVisible, setDepartmentPickerVisible] = useState(false);
   const [departmentSearch, setDepartmentSearch] = useState('');
+  const [university, setUniversity] = useState('');
+  const [universityPickerVisible, setUniversityPickerVisible] = useState(false);
+  const [universitySearch, setUniversitySearch] = useState('');
+  const [studentId, setStudentId] = useState('');
+  const [customUniversity, setCustomUniversity] = useState('');
   const [saving, setSaving] = useState(false);
 
   const [make, setMake] = useState('');
@@ -68,7 +92,17 @@ export default function OnboardingScreen() {
     setFullName(profile?.full_name ?? metadataName);
     setPhone(formatNicaraguaPhoneInput(profile?.phone ?? ''));
     setDepartment(profile?.city ?? '');
-  }, [profile?.city, profile?.full_name, profile?.phone, user?.user_metadata?.full_name, user?.user_metadata?.name]);
+
+    const savedUniversity = profile?.university ?? '';
+    if (savedUniversity && !UNIVERSITIES.includes(savedUniversity)) {
+      setUniversity(OTHER_UNIVERSITY_OPTION);
+      setCustomUniversity(savedUniversity);
+    } else {
+      setUniversity(savedUniversity);
+      setCustomUniversity('');
+    }
+    setStudentId(profile?.student_id ?? '');
+  }, [profile?.city, profile?.full_name, profile?.phone, profile?.student_id, profile?.university, user?.user_metadata?.full_name, user?.user_metadata?.name]);
 
   const parsedSeats = Number.parseInt(seats, 10);
   const canSaveVehicle = useMemo(() => {
@@ -79,8 +113,14 @@ export default function OnboardingScreen() {
     if (!query) return DEPARTMENTS;
     return DEPARTMENTS.filter((item) => normalizeSearchText(item).includes(query));
   }, [departmentSearch]);
+  const universityOptions = useMemo(() => [...UNIVERSITIES, OTHER_UNIVERSITY_OPTION], []);
+  const filteredUniversities = useMemo(() => {
+    const query = normalizeSearchText(universitySearch.trim());
+    if (!query) return universityOptions;
+    return universityOptions.filter((item) => normalizeSearchText(item).includes(query));
+  }, [universityOptions, universitySearch]);
 
-  const totalSteps = step === 4 ? 5 : 4;
+  const totalSteps = step === 5 ? 6 : 5;
   const progressStep = step + 1;
 
   const validateProfile = () => {
@@ -98,6 +138,22 @@ export default function OnboardingScreen() {
     return true;
   };
 
+  const validateUniversity = () => {
+    if (!university) {
+      Alert.alert('Universidad requerida', 'Selecciona tu universidad para continuar.');
+      return false;
+    }
+    if (university === OTHER_UNIVERSITY_OPTION && !customUniversity.trim()) {
+      Alert.alert('Universidad requerida', 'Escribe el nombre de tu universidad para continuar.');
+      return false;
+    }
+    if (!studentId.trim()) {
+      Alert.alert('Carnet requerido', 'Ingresa tu carnet para continuar.');
+      return false;
+    }
+    return true;
+  };
+
   const saveProfileAndFinish = async (target: FinishTarget) => {
     if (!user) {
       Alert.alert('Sesion requerida', 'Inicia sesion para completar tu perfil.');
@@ -105,6 +161,7 @@ export default function OnboardingScreen() {
     }
 
     if (!validateProfile()) return;
+    if (!validateUniversity()) return;
 
     if (!department) {
       Alert.alert('Departamento requerido', 'Selecciona tu departamento para continuar.');
@@ -119,10 +176,15 @@ export default function OnboardingScreen() {
     setSaving(true);
 
     const phoneForStorage = toNicaraguaPhoneStorage(phone.trim());
+    const universityForStorage = university === OTHER_UNIVERSITY_OPTION
+      ? customUniversity.trim()
+      : university;
     const { error: profileError } = await updateProfile(user.id, {
       full_name: fullName.trim(),
       phone: phoneForStorage,
       city: department,
+      university: universityForStorage,
+      student_id: studentId.trim(),
       onboarding_completed_at: new Date().toISOString(),
     });
 
@@ -157,11 +219,12 @@ export default function OnboardingScreen() {
 
   const goNext = () => {
     if (step === 1 && !validateProfile()) return;
-    if (step === 2 && !department) {
+    if (step === 2 && !validateUniversity()) return;
+    if (step === 3 && !department) {
       Alert.alert('Departamento requerido', 'Selecciona tu departamento para continuar.');
       return;
     }
-    setStep((current) => Math.min(current + 1, 4) as Step);
+    setStep((current) => Math.min(current + 1, 5) as Step);
   };
 
   const goBack = () => {
@@ -262,6 +325,64 @@ export default function OnboardingScreen() {
         <View className="gap-5">
           <View className="gap-2">
             <Text className="font-jakarta-extrabold text-[30px] text-on-surface tracking-tight">
+              Tu universidad
+            </Text>
+            <Text className="font-jakarta text-sm leading-5 text-on-surface-variant">
+              Usamos esto para conectarte con otros estudiantes de tu campus. Tu carnet queda solo en tu perfil.
+            </Text>
+          </View>
+
+          <View className="bg-white rounded-[26px] p-5 border border-outline-variant/20 gap-4" style={Shadows.surface}>
+            <View className="gap-3">
+              <Text className="font-jakarta-semibold text-sm text-on-surface-variant ml-1">
+                Universidad
+              </Text>
+              <TouchableOpacity
+                className="h-14 rounded-input bg-surface-container-low px-4 flex-row items-center gap-3"
+                activeOpacity={0.75}
+                onPress={() => {
+                  setUniversitySearch(university && university !== OTHER_UNIVERSITY_OPTION ? university : '');
+                  setUniversityPickerVisible(true);
+                }}
+              >
+                <GraduationCap size={20} color={Colors.primary} />
+                <Text className={`font-jakarta text-base flex-1 ${university ? 'text-on-surface' : 'text-outline'}`}>
+                  {university || 'Selecciona tu universidad'}
+                </Text>
+                <ChevronDown size={20} color={Colors.outline} />
+              </TouchableOpacity>
+            </View>
+
+            {university === OTHER_UNIVERSITY_OPTION ? (
+              <Input
+                label="Nombre de tu universidad"
+                placeholder="Ej. Universidad Hispanoamericana"
+                value={customUniversity}
+                onChangeText={setCustomUniversity}
+                icon={<GraduationCap size={20} color={Colors.primary} />}
+              />
+            ) : null}
+
+            <Input
+              label="Carnet"
+              placeholder="Ej. 20231234"
+              value={studentId}
+              onChangeText={setStudentId}
+              autoCapitalize="characters"
+              icon={<IdCard size={20} color={Colors.primary} />}
+            />
+          </View>
+
+          <Button title="Continuar" onPress={goNext} icon={<ArrowRight size={20} color={Colors.onPrimary} />} />
+        </View>
+      );
+    }
+
+    if (step === 3) {
+      return (
+        <View className="gap-5">
+          <View className="gap-2">
+            <Text className="font-jakarta-extrabold text-[30px] text-on-surface tracking-tight">
               Elige tu departamento
             </Text>
             <Text className="font-jakarta text-sm leading-5 text-on-surface-variant">
@@ -297,7 +418,7 @@ export default function OnboardingScreen() {
       );
     }
 
-    if (step === 3) {
+    if (step === 4) {
       return (
         <View className="gap-5">
           <View className="gap-2">
@@ -313,7 +434,7 @@ export default function OnboardingScreen() {
             <TouchableOpacity
               className="rounded-2xl bg-secondary-container p-5 gap-3"
               activeOpacity={0.8}
-              onPress={() => setStep(4)}
+              onPress={() => setStep(5)}
             >
               <Car size={26} color={Colors.onSecondaryContainer} />
               <Text className="font-jakarta-bold text-xl text-on-secondary-container">
@@ -470,6 +591,87 @@ export default function OnboardingScreen() {
                 <View className="rounded-2xl bg-surface-container-low px-4 py-5 items-center">
                   <Text className="font-jakarta-semibold text-sm text-on-surface-variant">
                     No encontramos ese departamento.
+                  </Text>
+                </View>
+              ) : null}
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        visible={universityPickerVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setUniversityPickerVisible(false)}
+      >
+        <View className="flex-1 justify-end bg-black/30">
+          <TouchableOpacity
+            className="flex-1"
+            activeOpacity={1}
+            onPress={() => setUniversityPickerVisible(false)}
+          />
+          <View className="max-h-[70%] rounded-t-[30px] bg-white px-5 pt-5 pb-8" style={Shadows.bottomBar}>
+            <View className="flex-row items-start justify-between pb-5 gap-4">
+              <View>
+                <Text className="font-jakarta-bold text-xl text-on-surface">
+                  Selecciona tu universidad
+                </Text>
+                <Text className="font-jakarta text-xs text-on-surface-variant mt-1">
+                  Si la tuya no aparece, elige &quot;Otra&quot; y escribe el nombre.
+                </Text>
+              </View>
+              <TouchableOpacity
+                className="h-10 w-10 rounded-full bg-surface-container-low items-center justify-center"
+                activeOpacity={0.75}
+                onPress={() => setUniversityPickerVisible(false)}
+              >
+                <X size={20} color={Colors.onSurface} />
+              </TouchableOpacity>
+            </View>
+
+            <View className="h-14 rounded-input bg-surface-container-low px-4 flex-row items-center gap-3 mb-4">
+              <Search size={20} color={Colors.primary} />
+              <TextInput
+                className="flex-1 font-jakarta text-base text-on-surface"
+                placeholder="Buscar universidad"
+                placeholderTextColor={Colors.outline}
+                value={universitySearch}
+                onChangeText={setUniversitySearch}
+                autoCapitalize="words"
+                autoCorrect={false}
+              />
+            </View>
+
+            <ScrollView className="-mx-1" contentContainerStyle={{ gap: 10, paddingHorizontal: 4, paddingBottom: 8 }}>
+              {filteredUniversities.map((item) => {
+                const selected = university === item;
+                return (
+                  <TouchableOpacity
+                    key={item}
+                    className={`min-h-12 rounded-2xl px-4 py-3 flex-row items-center gap-3 ${selected ? 'bg-primary' : 'bg-surface-container-low'}`}
+                    activeOpacity={0.75}
+                    onPress={() => {
+                      setUniversity(item);
+                      if (item !== OTHER_UNIVERSITY_OPTION) {
+                        setUniversitySearch(item);
+                      } else {
+                        setUniversitySearch('');
+                      }
+                      setUniversityPickerVisible(false);
+                    }}
+                  >
+                    <GraduationCap size={18} color={selected ? Colors.onPrimary : Colors.primary} />
+                    <Text className={`font-jakarta-bold text-sm flex-1 ${selected ? 'text-on-primary' : 'text-on-surface'}`}>
+                      {item}
+                    </Text>
+                    {selected ? <CheckCircle2 size={18} color={Colors.onPrimary} /> : null}
+                  </TouchableOpacity>
+                );
+              })}
+              {filteredUniversities.length === 0 ? (
+                <View className="rounded-2xl bg-surface-container-low px-4 py-5 items-center">
+                  <Text className="font-jakarta-semibold text-sm text-on-surface-variant">
+                    No encontramos esa universidad.
                   </Text>
                 </View>
               ) : null}

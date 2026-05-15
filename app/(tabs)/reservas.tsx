@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, ScrollView, RefreshControl, Alert, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { Car, Route } from 'lucide-react-native';
 import { AppHeader } from '@/src/components/AppHeader';
 import { ReservationCard } from '@/src/components/ReservationCard';
@@ -17,6 +18,7 @@ type TripsTab = 'reservations' | 'published';
 export default function ReservasScreen() {
   const { user } = useAuth();
   const router = useRouter();
+  const tabBarHeight = useBottomTabBarHeight();
   const [reservations, setReservations] = useState<ReservationWithDetails[]>([]);
   const [publishedRides, setPublishedRides] = useState<RideWithDriver[]>([]);
   const [loading, setLoading] = useState(true);
@@ -86,7 +88,7 @@ export default function ReservasScreen() {
     <SafeAreaView className="flex-1 bg-background" edges={['top']}>
       <ScrollView
         className="flex-1"
-        contentContainerStyle={{ paddingBottom: 100 }}
+        contentContainerStyle={{ paddingBottom: tabBarHeight + 24 }}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={() => {
             setRefreshing(true);

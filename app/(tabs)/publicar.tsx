@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Alert, KeyboardAvoidingView, Platform, TextInput, TouchableOpacity, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { MapPin, Flag, Calendar, Clock, Map, CheckCircle, Route, ArrowLeft, ArrowRight, X } from 'lucide-react-native';
 import { AppHeader } from '@/src/components/AppHeader';
 import { Input } from '@/src/components/Input';
@@ -17,6 +18,7 @@ import type { MapPointSelection, Vehicle } from '@/src/types/database';
 
 export default function PublicarScreen() {
   const { user } = useAuth();
+  const tabBarHeight = useBottomTabBarHeight();
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
   const [originPoint, setOriginPoint] = useState<MapPointSelection | null>(null);
@@ -267,7 +269,7 @@ export default function PublicarScreen() {
       >
         <ScrollView
           className="flex-1"
-          contentContainerStyle={{ paddingBottom: 100 }}
+          contentContainerStyle={{ paddingBottom: tabBarHeight + 24 }}
           keyboardShouldPersistTaps="handled"
         >
           {/* Header */}

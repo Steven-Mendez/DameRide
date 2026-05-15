@@ -1,0 +1,1 @@
+-- Remote-only migration applied directly to remote DB (e.g. via dashboard). Placeholder to keep CLI history in sync.

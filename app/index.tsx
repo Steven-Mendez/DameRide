@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Search, PlusCircle, MapPin, Calendar, User, Bell } from 'lucide-react-native';
+import DameRideLogo from '@/src/components/DameRideLogo';
 import { Colors, Shadows } from '@/src/constants/theme';
 import { useAuth } from '@/src/hooks/useAuth';
 
@@ -43,14 +44,8 @@ export default function WelcomeScreen() {
 
         {/* Hero Section */}
         <View className="items-center mt-4 mb-6 px-5">
-          <View
-            className="w-full aspect-[4/3] rounded-[24px] overflow-hidden mb-6 bg-surface-container"
-            style={Shadows.sm}
-          >
-            <Image
-              source={require('@/assets/images/hero_illustration.png')}
-              style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
-            />
+          <View className="items-center justify-center py-8 mb-2">
+            <DameRideLogo size={140} accessibilityLabel="DameRide" />
           </View>
 
           <Text className="font-jakarta-bold text-[30px] text-on-surface text-center tracking-tight">

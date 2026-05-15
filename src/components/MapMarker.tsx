@@ -53,7 +53,7 @@ interface MarkerProps {
   color?: string;
 }
 
-/** Green pin with a navigation arrow — used for trip origin / salida. */
+/** Primary (orange) pin with a navigation arrow — used for trip origin / salida. */
 export function OriginMarker({ color = Colors.primary }: MarkerProps) {
   return (
     <PinBubble color={color}>
@@ -62,7 +62,7 @@ export function OriginMarker({ color = Colors.primary }: MarkerProps) {
   );
 }
 
-/** Blue pin with a map-pin icon — used for trip destination / llegada. */
+/** Secondary (yellow) pin with a map-pin icon — used for trip destination / llegada. */
 export function DestinationMarker({ color = Colors.secondary }: MarkerProps) {
   return (
     <PinBubble color={color}>
@@ -76,8 +76,8 @@ export function DestinationMarker({ color = Colors.secondary }: MarkerProps) {
  * Designed to be legible against both light and dark map tiles.
  */
 export const ROUTE_PALETTE = [
-  '#006d37', // verde (primary)
-  '#0051d3', // azul (secondary)
+  '#0f766e', // verde-azulado
+  '#1d4ed8', // azul
   '#e8570a', // naranja
   '#7c3aed', // morado
   '#0d9488', // teal

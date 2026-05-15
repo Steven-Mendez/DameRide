@@ -11,6 +11,7 @@ import {
 } from '@expo-google-fonts/plus-jakarta-sans';
 import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider, useAuth } from '@/src/hooks/useAuth';
+import BrandSplash from '@/src/components/BrandSplash';
 import '../global.css';
 
 let splashScreenHidden = false;
@@ -65,6 +66,10 @@ function RootLayoutNav() {
       router.replace('/(tabs)/buscar');
     }
   }, [session, profile, loading, profileLoading, segments, router]);
+
+  if (loading || profileLoading) {
+    return <BrandSplash />;
+  }
 
   return (
     <>

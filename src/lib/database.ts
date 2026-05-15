@@ -7,7 +7,7 @@ import type {
 } from '../types/database';
 import type { TablesInsert, TablesUpdate } from '../types/supabase';
 
-const PROFILE_SELECT = 'id, full_name, phone, city, avatar_url, rating, completed_rides, onboarding_completed_at, created_at';
+const PROFILE_SELECT = 'id, full_name, phone, city, avatar_url, rating, completed_rides, onboarding_completed_at, university, student_id, created_at';
 const VEHICLE_SELECT = 'id, owner_id, make, model, color, plate, seats, photo_url, created_at';
 const RIDE_SELECT = 'id, driver_id, vehicle_id, origin, origin_place_name, origin_address, origin_lat, origin_lng, destination, destination_place_name, destination_address, destination_lat, destination_lng, route_polyline, route_distance_meters, route_duration_seconds, meeting_point, meeting_point_lat, meeting_point_lng, departure_time, estimated_arrival_time, available_seats, price_cordobas, notes, status, created_at';
 const RESERVATION_SELECT = 'id, ride_id, passenger_id, seats_reserved, status, created_at';
@@ -371,6 +371,8 @@ export async function createRide(ride: {
         rating: 5,
         completed_rides: 0,
         onboarding_completed_at: new Date().toISOString(),
+        university: null,
+        student_id: null,
         created_at: new Date().toISOString(),
       },
       vehicle: null,
@@ -544,6 +546,8 @@ const MOCK_RIDES: RideWithDriver[] = [
       rating: 4.9,
       completed_rides: 58,
       onboarding_completed_at: new Date().toISOString(),
+      university: null,
+      student_id: null,
       created_at: new Date().toISOString(),
     },
     vehicle: null,

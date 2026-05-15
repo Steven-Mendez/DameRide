@@ -1,33 +1,33 @@
 export const Colors = {
   // Primary
-  primary: '#006d37',
-  primaryContainer: '#2ecc71',
-  onPrimary: '#ffffff',
-  onPrimaryContainer: '#005027',
-  primaryFixed: '#6bfe9c',
-  primaryFixedDim: '#4ae183',
-  onPrimaryFixed: '#00210c',
-  onPrimaryFixedVariant: '#005228',
-  inversePrimary: '#4ae183',
+  primary: '#FF6B1A',
+  primaryContainer: '#FFD7BF',
+  onPrimary: '#FFFFFF',
+  onPrimaryContainer: '#5A1F00',
+  primaryFixed: '#FFD7BF',
+  primaryFixedDim: '#FFB088',
+  onPrimaryFixed: '#2B0E00',
+  onPrimaryFixedVariant: '#5A1F00',
+  inversePrimary: '#FFB088',
 
   // Secondary
-  secondary: '#0051d3',
-  secondaryContainer: '#226afc',
-  onSecondary: '#ffffff',
-  onSecondaryContainer: '#fefcff',
-  secondaryFixed: '#dbe1ff',
-  secondaryFixedDim: '#b3c5ff',
-  onSecondaryFixed: '#00174a',
-  onSecondaryFixedVariant: '#003ea6',
+  secondary: '#F5C518',
+  secondaryContainer: '#FFEEB0',
+  onSecondary: '#1A1300',
+  onSecondaryContainer: '#3A2A00',
+  secondaryFixed: '#FFEEB0',
+  secondaryFixedDim: '#FFE07A',
+  onSecondaryFixed: '#1A1300',
+  onSecondaryFixedVariant: '#3A2A00',
 
   // Tertiary
-  tertiary: '#98472a',
-  tertiaryContainer: '#ff9875',
-  onTertiary: '#ffffff',
-  onTertiaryContainer: '#772e14',
-  tertiaryFixed: '#ffdbd0',
-  tertiaryFixedDim: '#ffb59d',
-  onTertiaryFixed: '#390c00',
+  tertiary: '#8B4A1F',
+  tertiaryContainer: '#FFD7BF',
+  onTertiary: '#FFFFFF',
+  onTertiaryContainer: '#5A1F00',
+  tertiaryFixed: '#FFD7BF',
+  tertiaryFixedDim: '#FFB088',
+  onTertiaryFixed: '#2B0E00',
 
   // Error
   error: '#ba1a1a',
@@ -36,32 +36,32 @@ export const Colors = {
   onErrorContainer: '#93000a',
 
   // Surface / Background
-  surface: '#f8f9fa',
-  surfaceBright: '#f8f9fa',
-  surfaceDim: '#d9dadb',
-  surfaceContainer: '#edeeef',
-  surfaceContainerLow: '#f3f4f5',
-  surfaceContainerLowest: '#ffffff',
-  surfaceContainerHigh: '#e7e8e9',
-  surfaceContainerHighest: '#e1e3e4',
-  surfaceTint: '#006d37',
-  surfaceVariant: '#e1e3e4',
+  surface: '#F8F4EB',
+  surfaceBright: '#FBF8F1',
+  surfaceDim: '#E8E1D0',
+  surfaceContainer: '#F2EDE0',
+  surfaceContainerLow: '#FAF6EE',
+  surfaceContainerLowest: '#FFFFFF',
+  surfaceContainerHigh: '#EBE5D4',
+  surfaceContainerHighest: '#E4DCC8',
+  surfaceTint: '#FF6B1A',
+  surfaceVariant: '#EBE5D4',
 
   // On Surface
-  onSurface: '#191c1d',
-  onSurfaceVariant: '#3d4a3e',
+  onSurface: '#0F0F0F',
+  onSurfaceVariant: '#3A3A3A',
 
   // Outline
-  outline: '#6c7b6d',
-  outlineVariant: '#bbcbbb',
+  outline: '#7A7368',
+  outlineVariant: '#D9D2C3',
 
   // Inverse
-  inverseSurface: '#2e3132',
-  inverseOnSurface: '#f0f1f2',
+  inverseSurface: '#2A2622',
+  inverseOnSurface: '#F8F4EB',
 
   // Background
-  background: '#f8f9fa',
-  onBackground: '#191c1d',
+  background: '#F8F4EB',
+  onBackground: '#0F0F0F',
 
   // Utility
   emerald50: '#ecfdf5',
@@ -112,7 +112,7 @@ export const Shadows = {
   },
   /** Action-level: primary buttons, modals */
   action: {
-    shadowColor: '#006d37',
+    shadowColor: '#FF6B1A',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,

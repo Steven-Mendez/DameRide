@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView, Platform, Image } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArrowRight, Lock, Mail, UserPlus } from 'lucide-react-native';
 import { Input } from '@/src/components/Input';
 import { Button } from '@/src/components/Button';
 import { GoogleSignInButton } from '@/src/features/auth/components/GoogleSignInButton';
+import DameRideLogo from '@/src/components/DameRideLogo';
 import { signIn } from '@/src/lib/auth';
 import { Colors, Shadows } from '@/src/constants/theme';
 
@@ -52,14 +53,8 @@ export default function LoginScreen() {
         >
           <View className="px-5 gap-4 pt-2">
             <View className="items-center gap-3">
-              <View
-                className="w-full aspect-[16/9] rounded-[24px] overflow-hidden bg-surface-container"
-                style={Shadows.sm}
-              >
-                <Image
-                  source={require('@/assets/images/hero_illustration.png')}
-                  style={{ width: '100%', height: '100%', resizeMode: 'cover' }}
-                />
+              <View className="flex-row items-center justify-center py-8">
+                <DameRideLogo size={140} accessibilityLabel="DameRide" />
               </View>
 
               <View className="items-center gap-1">
