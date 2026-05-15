@@ -51,20 +51,15 @@ export default function LoginScreen() {
           contentContainerStyle={{ paddingBottom: 40 }}
           keyboardShouldPersistTaps="handled"
         >
-          <View className="px-5 gap-4 pt-2">
-            <View className="items-center gap-3">
-              <View className="flex-row items-center justify-center py-8">
+          <View className="px-5 gap-3 pt-1">
+            <View className="items-center gap-2">
+              <View className="flex-row items-center justify-center py-4">
                 <DameRideLogo size={140} accessibilityLabel="DameRide" />
               </View>
 
-              <View className="items-center gap-1">
-                <Text className="font-jakarta-extrabold text-[30px] text-on-surface text-center tracking-tight">
-                  DameRide
-                </Text>
-                <Text className="font-jakarta text-sm text-on-surface-variant text-center max-w-[290px] leading-5">
-                  Comparte tu ruta, ahorra dinero y viaja acompañado.
-                </Text>
-              </View>
+              <Text className="font-jakarta text-sm text-on-surface-variant text-center max-w-[290px] leading-5">
+                Comparte tu ruta, ahorra dinero y viaja acompañado.
+              </Text>
             </View>
 
             <View

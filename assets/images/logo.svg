@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1350">
+  <rect width="1080" height="1350" fill="#000"/>
+  <!-- Cuerpo del coche -->
+  <path fill="#fff" d="
+    M 290 505
+    L 786 505
+    C 870 505 948 580 948 660
+    L 948 745
+    L 126 745
+    L 126 660
+    C 126 580 206 505 290 505
+    Z
+  "/>
+  <!-- Cúpula -->
+  <path fill="#fff" d="
+    M 303 510
+    A 235 208 0 0 1 773 510
+    Z
+  "/>
+  <!-- Ventana (recorte negro) -->
+  <path fill="#000" d="
+    M 370 510
+    A 168 145 0 0 1 706 510
+    Z
+  "/>
+  <!-- Arco rueda izquierda (recorte negro) -->
+  <path fill="#000" d="
+    M 211 745
+    A 126 125 0 0 1 463 745
+    Z
+  "/>
+  <!-- Arco rueda derecha (recorte negro) -->
+  <path fill="#000" d="
+    M 610 745
+    A 126 125 0 0 1 862 745
+    Z
+  "/>
+  <!-- Ruedas -->
+  <circle cx="337" cy="743" r="71" fill="#fff"/>
+  <circle cx="737" cy="743" r="72" fill="#fff"/>
+  <!-- Sonrisa con puntas en J (feliz) -->
+  <path fill="#fff" d="
+    M 381 873
+    A 237 237 0 0 0 316 900
+    A 249 249 0 0 0 764 900
+    A 237 237 0 0 1 699 873
+    A 179 179 0 0 1 381 873
+    Z
+  "/>
+</svg>
