@@ -3,6 +3,7 @@ import { View, Text, ScrollView, Alert, KeyboardAvoidingView, Platform, TextInpu
 import { SafeAreaView } from 'react-native-safe-area-context';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { useRouter } from 'expo-router';
 import { MapPin, Flag, Calendar, Clock, Map, CheckCircle, Route, ArrowLeft, ArrowRight, X } from 'lucide-react-native';
 import { AppHeader } from '@/src/components/AppHeader';
 import { Input } from '@/src/components/Input';
@@ -18,6 +19,7 @@ import type { MapPointSelection, Vehicle } from '@/src/types/database';
 
 export default function PublicarScreen() {
   const { user } = useAuth();
+  const router = useRouter();
   const tabBarHeight = useBottomTabBarHeight();
   const [origin, setOrigin] = useState('');
   const [destination, setDestination] = useState('');
@@ -65,7 +67,7 @@ export default function PublicarScreen() {
     // Parse date and time into ISO string
     const departureTime = new Date(`${date}T${time}:00`).toISOString();
 
-    const { error } = await createRide({
+    const { data, error } = await createRide({
       driver_id: user.id,
       vehicle_id: vehicles[0]?.id,
       origin: origin.trim(),
@@ -108,6 +110,11 @@ export default function PublicarScreen() {
       setRouteResult(null);
       setStep('route');
       setTimeout(() => setSuccess(false), 4000);
+      if (data?.id) {
+        router.push(`/ride/${data.id}`);
+      } else {
+        router.push('/(tabs)/buscar');
+      }
     }
   };
 

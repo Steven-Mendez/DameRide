@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Alert, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import {
   Share2, Car, Users, Star,
   MessageSquare, Ban, Timer, Luggage, MessageCircle,
@@ -19,6 +19,7 @@ import type { RideWithDriver } from '@/src/types/database';
 
 export default function RideDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
   const { user } = useAuth();
   const [ride, setRide] = useState<RideWithDriver | null>(null);
   const [loading, setLoading] = useState(true);
@@ -62,6 +63,7 @@ export default function RideDetailsScreen() {
               const updated = await getRideById(ride.id);
               if (updated) setRide(updated);
               setTimeout(() => setReserved(false), 4000);
+              router.push('/(tabs)/reservas');
             }
           },
         },

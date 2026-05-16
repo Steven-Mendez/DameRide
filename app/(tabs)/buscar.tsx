@@ -355,7 +355,7 @@ export default function BuscarScreen() {
             onPress={handleSearch}
             loading={loading}
             icon={<Search size={20} color="#ffffff" />}
-            variant="primary-container"
+            variant="primary"
           />
           <TouchableOpacity
             className="flex-row justify-center items-center gap-2 py-2"
