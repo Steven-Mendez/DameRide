@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { Stack, useRouter, useSegments } from 'expo-router';
+import { StyleSheet, View } from 'react-native';
+import { Stack, useRootNavigationState, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import {
   useFonts,
@@ -45,9 +46,26 @@ function RootLayoutNav() {
   const { session, profile, loading, profileLoading } = useAuth();
   const segments = useSegments();
   const router = useRouter();
+  // expo-router 6 / SDK 54: the root navigation state is `undefined` until the
+  // root <NavigationContainer> is initialized. Guarding imperative redirects on
+  // `navigationState?.key` ensures a navigator exists before any router.replace
+  // is dispatched, so the action is never "not handled by any navigator".
+  const navigationState = useRootNavigationState();
+  const navigationReady = navigationState?.key != null;
+
+  // Keep the splash up until the redirect can actually fire. While
+  // `!navigationReady`, the readiness-gated effect cannot dispatch
+  // router.replace yet, so hiding the overlay here would briefly expose the
+  // `index` route before the redirect lands. This cannot deadlock: the <Stack>
+  // is rendered unconditionally, so useRootNavigationState() resolves a key and
+  // navigationReady becomes true on its own.
+  const showSplash = loading || profileLoading || !navigationReady;
 
   useEffect(() => {
+    // Single source of truth for the auth/onboarding/tabs routing decision.
+    // Bail until auth/profile have resolved AND the root navigator is ready.
     if (loading || profileLoading) return;
+    if (!navigationReady) return;
 
     const inAuthGroup = segments[0] === '(auth)';
     const inTabsGroup = segments[0] === '(tabs)';
@@ -65,11 +83,7 @@ function RootLayoutNav() {
       // Logged in and in auth group or root → redirect to tabs
       router.replace('/(tabs)/buscar');
     }
-  }, [session, profile, loading, profileLoading, segments, router]);
-
-  if (loading || profileLoading) {
-    return <BrandSplash />;
-  }
+  }, [session, profile, loading, profileLoading, navigationReady, segments, router]);
 
   return (
     <>
@@ -100,6 +114,14 @@ function RootLayoutNav() {
           }}
         />
       </Stack>
+      {/* Opaque, full-screen overlay layered ON TOP of the always-mounted
+          <Stack> while auth/profile resolve. The navigator is never withheld,
+          so a navigator is always present to handle router.replace. */}
+      {showSplash && (
+        <View style={StyleSheet.absoluteFill} pointerEvents="auto">
+          <BrandSplash />
+        </View>
+      )}
       <StatusBar style="dark" />
     </>
   );

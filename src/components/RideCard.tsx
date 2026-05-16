@@ -109,11 +109,11 @@ export function RideCard({ ride, actionLabel = 'Ver detalles y reservar' }: Ride
 
       {/* CTA */}
       <TouchableOpacity
-        className="w-full py-3 bg-primary-container rounded-xl items-center mt-1"
+        className="w-full py-3 bg-primary rounded-xl items-center mt-1"
         activeOpacity={0.7}
         onPress={() => router.push(`/ride/${ride.id}`)}
       >
-        <Text className="font-jakarta-bold text-sm text-on-primary-container">
+        <Text className="font-jakarta-bold text-sm text-on-primary">
           {actionLabel}
         </Text>
       </TouchableOpacity>

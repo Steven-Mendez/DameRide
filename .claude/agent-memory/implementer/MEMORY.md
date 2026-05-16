@@ -1,0 +1,1 @@
+- [Validation command](project_validation.md) — how to lint+typecheck this Expo repo (no test runner exists)

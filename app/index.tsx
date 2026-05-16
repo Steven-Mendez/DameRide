@@ -1,31 +1,15 @@
-import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Search, PlusCircle, MapPin, Calendar, User, Bell } from 'lucide-react-native';
 import DameRideLogo from '@/src/components/DameRideLogo';
 import { Colors, Shadows } from '@/src/constants/theme';
-import { useAuth } from '@/src/hooks/useAuth';
 
+// The auth/onboarding/tabs routing decision lives in exactly one place:
+// the guarded redirect effect in `app/_layout.tsx`. This screen MUST NOT
+// re-derive or dispatch that decision (no router.replace here).
 export default function WelcomeScreen() {
   const router = useRouter();
-  const { session, profile, profileLoading } = useAuth();
-
-  // If already logged in, go to tabs
-  React.useEffect(() => {
-    if (!session) {
-      router.replace('/(auth)/login');
-      return;
-    }
-
-    if (profileLoading) return;
-
-    if (profile?.onboarding_completed_at) {
-      router.replace('/(tabs)/buscar');
-    } else {
-      router.replace('/onboarding');
-    }
-  }, [profile?.onboarding_completed_at, profileLoading, router, session]);
 
   return (
     <SafeAreaView className="flex-1 bg-background">
